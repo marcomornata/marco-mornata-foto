@@ -266,7 +266,7 @@
         <div class="header-spacer"></div>
         <div class="home-content-box">
             <a href="#1-tutti" class="logo-diaphragm nav-overview-trigger" aria-label="Vai alle gallerie">
-                <svg viewBox="0 0 793.26 793.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                <svg id="home-logo" viewBox="0 0 793.26 793.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                     <defs>
                         <clipPath id="exactCircleClip">
                             <circle cx="396.63" cy="396.95" r="396.63" />
@@ -391,6 +391,7 @@
             }
 
             if (target === 'home') {
+                document.getElementById('home-logo').setCurrentTime(0);
                 document.documentElement.classList.remove('light-mode');
                 document.body.classList.remove('light-mode');
                 elements.mainMenu.style.display = 'flex';
