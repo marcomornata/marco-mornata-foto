@@ -362,6 +362,10 @@
 
         function restartHomeLogoAnimation() {
             homeLogoLink.innerHTML = initialHomeLogoMarkup;
+            const homeLogo = homeLogoLink.querySelector('svg');
+            homeLogo.pauseAnimations();
+            homeLogo.setCurrentTime(0);
+            homeLogo.unpauseAnimations();
         }
 
         function navigateTo(target, param = null, filter = null) {
