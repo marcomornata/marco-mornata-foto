@@ -335,6 +335,7 @@
             galleryWrapper: document.getElementById('gallery-wrapper'),
             galleryList: document.getElementById('gallery-list')
         };
+        const homeLogoTemplate = document.getElementById('home-logo').cloneNode(true);
 
         const contentGalleries = {
             'gallery-1': [
@@ -363,11 +364,9 @@
                 clearTimeout(homeLogoAnimationTimeout);
             }
 
-            const homeLogo = document.getElementById('home-logo');
-            homeLogo.querySelectorAll('#iris-blades animate, #center-cube animate').forEach(animation => {
-                animation.replaceWith(animation.cloneNode());
-            });
-            homeLogo.querySelector('#center-cube').setAttribute('opacity', '0');
+            const currentHomeLogo = document.getElementById('home-logo');
+            const homeLogo = homeLogoTemplate.cloneNode(true);
+            currentHomeLogo.replaceWith(homeLogo);
             homeLogo.querySelectorAll('#iris-blades animate').forEach(animation => animation.beginElement());
             homeLogoAnimationTimeout = window.setTimeout(() => {
                 homeLogo.querySelector('#center-cube animate').beginElement();
