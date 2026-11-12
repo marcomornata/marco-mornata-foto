@@ -336,7 +336,7 @@
             galleryList: document.getElementById('gallery-list')
         };
         const homeLogoLink = document.querySelector('.logo-diaphragm');
-        const initialHomeLogoMarkup = homeLogoLink.innerHTML;
+        const homeLogoTemplate = document.getElementById('home-logo').cloneNode(true);
 
         const contentGalleries = {
             'gallery-1': [
@@ -361,11 +361,8 @@
         let currentTarget = null;
 
         function restartHomeLogoAnimation() {
-            homeLogoLink.innerHTML = initialHomeLogoMarkup;
-            const homeLogo = homeLogoLink.querySelector('svg');
-            homeLogo.pauseAnimations();
-            homeLogo.setCurrentTime(0);
-            homeLogo.unpauseAnimations();
+            const currentHomeLogo = homeLogoLink.querySelector('svg');
+            currentHomeLogo.replaceWith(homeLogoTemplate.cloneNode(true));
         }
 
         function navigateTo(target, param = null, filter = null) {
