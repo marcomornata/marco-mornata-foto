@@ -336,7 +336,7 @@
             galleryList: document.getElementById('gallery-list')
         };
         const homeLogoLink = document.querySelector('.logo-diaphragm');
-        const homeLogoTemplate = document.getElementById('home-logo').cloneNode(true);
+        const homeLogoHTML = document.getElementById('home-logo').outerHTML;
 
         const contentGalleries = {
             'gallery-1': [
@@ -361,8 +361,31 @@
         let currentTarget = null;
 
         function restartHomeLogoAnimation() {
-            const currentHomeLogo = homeLogoLink.querySelector('svg');
-            currentHomeLogo.replaceWith(homeLogoTemplate.cloneNode(true));
+            // Rigenera l'SVG da stringa HTML per slegarlo dalla cache del DOM
+            homeLogoLink.innerHTML = homeLogoHTML;
+            const newLogo = homeLogoLink.querySelector('svg');
+
+            if (newLogo) {
+                // Riporta a 0 la timeline interna SMIL del nuovo SVG
+                if (typeof newLogo.setCurrentTime === 'function') {
+                    newLogo.setCurrentTime(0);
+                }
+
+                // Riavvia esplicitamente le animazioni rispettando eventuali ritardi (begin)
+                newLogo.querySelectorAll('animate').forEach(anim => {
+                    const beginAttr = anim.getAttribute('begin');
+                    if (beginAttr && beginAttr !== '0s') {
+                        const delayMs = parseFloat(beginAttr) * 1000;
+                        setTimeout(() => {
+                            if (typeof anim.beginElement === 'function') {
+                                anim.beginElement();
+                            }
+                        }, delayMs);
+                    } else if (typeof anim.beginElement === 'function') {
+                        anim.beginElement();
+                    }
+                });
+            }
         }
 
         function navigateTo(target, param = null, filter = null) {
