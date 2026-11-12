@@ -364,6 +364,10 @@
             }
 
             const homeLogo = document.getElementById('home-logo');
+            homeLogo.querySelectorAll('#iris-blades animate, #center-cube animate').forEach(animation => {
+                animation.replaceWith(animation.cloneNode());
+            });
+            homeLogo.querySelector('#center-cube').setAttribute('opacity', '0');
             homeLogo.querySelectorAll('#iris-blades animate').forEach(animation => animation.beginElement());
             homeLogoAnimationTimeout = window.setTimeout(() => {
                 homeLogo.querySelector('#center-cube animate').beginElement();
