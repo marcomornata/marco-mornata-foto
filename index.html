@@ -54,10 +54,11 @@
             background: none;
             border: none;
             padding: 0;
-            cursor: pointer;
             white-space: nowrap;
             transition: opacity 0.3s ease;
         }
+
+        button, .tag-btn { cursor: pointer; }
 
         /* Nomi sotto le anteprime delle gallerie */
         .overview-card span {
@@ -306,7 +307,7 @@
     <!-- 2. SCHERMATA PANORAMICA A griglia -->
     <div class="overview-wrapper" id="overview-wrapper">
         <div class="page-header" id="overview-header">
-            <button class="top-nav-btn nav-home-trigger">MARCO MORNATA</button>
+            <span class="top-nav-btn">MARCO MORNATA</span>
             <div class="tags-container">
                 <button class="tag-btn" onclick="changeFilter('tutti', this)">TUTTI</button>
                 <button class="tag-btn" onclick="changeFilter('architettura', this)">ARCHITETTURA</button>
@@ -320,7 +321,7 @@
     <!-- 3. VISUALIZZAZIONE GALLERIA FOTO -->
     <div class="gallery-wrapper" id="gallery-wrapper">
         <div class="page-header" id="gallery-header">
-            <button class="top-nav-btn nav-home-trigger">MARCO MORNATA</button>
+            <span class="top-nav-btn">MARCO MORNATA</span>
             <button class="top-nav-btn nav-overview-trigger">GALLERIE</button>
         </div>
         <div class="header-spacer"></div>
@@ -554,9 +555,6 @@
         window.addEventListener('hashchange', handleRouteFromHash);
 
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.nav-home-trigger').forEach(el => {
-                el.addEventListener('click', () => navigateTo('home'));
-            });
             document.querySelectorAll('.nav-overview-trigger').forEach(el => {
                 el.addEventListener('click', () => navigateTo('overview'));
             });
