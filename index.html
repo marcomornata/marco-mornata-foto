@@ -357,6 +357,7 @@
         };
 
         let currentFilter = 'tutti';
+        let currentTarget = null;
 
         function navigateTo(target, param = null, filter = null) {
             let hash = '#0';
@@ -376,6 +377,9 @@
         }
 
         function renderState(target, param = null, filter = 'tutti') {
+            const isReturningHome = target === 'home' && currentTarget !== null && currentTarget !== 'home';
+            currentTarget = target;
+
             elements.mainMenu.style.display = 'none';
             elements.overviewWrapper.style.display = 'none';
             elements.galleryWrapper.style.display = 'none';
@@ -391,7 +395,12 @@
             }
 
             if (target === 'home') {
-                document.getElementById('home-logo').setCurrentTime(0);
+                if (isReturningHome) {
+                    const homeLogo = document.getElementById('home-logo');
+                    homeLogo.pauseAnimations();
+                    homeLogo.setCurrentTime(0);
+                    homeLogo.unpauseAnimations();
+                }
                 document.documentElement.classList.remove('light-mode');
                 document.body.classList.remove('light-mode');
                 elements.mainMenu.style.display = 'flex';
