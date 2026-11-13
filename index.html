@@ -347,6 +347,9 @@
         };
         const homeLogoLink = document.querySelector('.logo-diaphragm');
         const homeLogoHTML = document.getElementById('home-logo').outerHTML;
+        const viewportMeta = document.querySelector('meta[name="viewport"]');
+        const defaultViewportContent = viewportMeta?.content;
+        let zoomResetTimeout;
 
         const contentGalleries = {
             'gallery-1': [
@@ -437,6 +440,16 @@
             navigateTo('overview', null, filterType);
         }
 
+        function resetViewportZoom() {
+            if (!viewportMeta || !defaultViewportContent) return;
+
+            clearTimeout(zoomResetTimeout);
+            viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
+            zoomResetTimeout = setTimeout(() => {
+                viewportMeta.setAttribute('content', defaultViewportContent);
+            }, 100);
+        }
+
         function renderState(target, param = null, filter = 'tutti') {
             const isReturningHome = target === 'home' && currentTarget !== null && currentTarget !== 'home';
             currentTarget = target;
@@ -449,11 +462,7 @@
             elements.overviewWrapper.classList.remove('visible');
             elements.galleryWrapper.classList.remove('visible');
 
-            // Forza il reset dello zoom e riporta la scala del browser al 100% pulito
-            const viewportMeta = document.querySelector('meta[name="viewport"]');
-            if (viewportMeta) {
-                viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover');
-            }
+            resetViewportZoom();
 
             if (target === 'home') {
                 document.documentElement.classList.remove('light-mode');
