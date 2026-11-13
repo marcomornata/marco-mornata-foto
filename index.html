@@ -120,6 +120,7 @@
 
         #gallery-header {
             justify-content: flex-start;
+            gap: 35px;
         }
 
         .info-nav-link {
@@ -143,6 +144,14 @@
             width: 100%;
             height: 100%;
             filter: invert(1);
+        }
+
+        .logo-diaphragm,
+        .logo-diaphragm svg,
+        .header-home-link,
+        .header-home-link img {
+            -webkit-user-drag: none;
+            user-select: none;
         }
 
         /* STRUTTURA SCHERMATE */
@@ -282,9 +291,9 @@
         @media (max-width: 768px) {
             .page-header { 
                 padding: 15px 20px; 
-                flex-direction: column; 
-                align-items: flex-start; 
-                gap: 10px; 
+                flex-direction: row;
+                align-items: center;
+                gap: 16px;
             }
             #gallery-header {
                 flex-direction: row;
@@ -300,6 +309,14 @@
             .home-content-box { max-width: 85vw; margin-top: -65px; padding: 0 10px; }
             .logo-diaphragm { max-height: 36vh; max-height: 36dvh; }
         }
+
+        @media (max-width: 480px) {
+            .page-header { padding: 14px 12px; gap: 10px; }
+            #overview-header { gap: 10px; }
+            .tags-container { gap: 10px; }
+            .tag-btn, .top-nav-btn { font-size: 10px !important; letter-spacing: 1px !important; }
+            .header-home-link { width: 30px; height: 30px; flex-basis: 30px; }
+        }
     </style>
 </head>
 <body>
@@ -310,8 +327,8 @@
         </div>
         <div class="header-spacer"></div>
         <div class="home-content-box">
-            <a href="#1-tutti" class="logo-diaphragm nav-overview-trigger" aria-label="Vai alle gallerie">
-                <svg id="home-logo" viewBox="0 0 793.26 793.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <a href="#1-tutti" class="logo-diaphragm nav-overview-trigger" aria-label="Vai alle gallerie" draggable="false">
+                <svg id="home-logo" viewBox="0 0 793.26 793.89" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" draggable="false">
                     <defs>
                         <clipPath id="exactCircleClip">
                             <circle cx="396.63" cy="396.95" r="396.63" />
@@ -352,14 +369,15 @@
     <!-- 2. SCHERMATA PANORAMICA A griglia -->
     <div class="overview-wrapper" id="overview-wrapper">
         <div class="page-header" id="overview-header">
-            <a class="header-home-link" href="#0" aria-label="Torna alla home">
-                <img src="logobianco.svg" alt="">
+            <a class="header-home-link" href="#0" aria-label="Torna alla home" draggable="false">
+                <img src="logobianco.svg" alt="" draggable="false">
             </a>
             <div class="tags-container">
                 <button class="tag-btn" onclick="changeFilter('tutti', this)">TUTTI</button>
                 <button class="tag-btn" onclick="changeFilter('architettura', this)">ARCHITETTURA</button>
                 <button class="tag-btn" onclick="changeFilter('natura', this)">NATURA</button>
             </div>
+            <a class="top-nav-btn info-nav-link" href="info.html">INFO</a>
         </div>
         <div class="header-spacer"></div>
         <div class="overview-grid" id="overview-grid"></div>
@@ -368,8 +386,8 @@
     <!-- 3. VISUALIZZAZIONE GALLERIA FOTO -->
     <div class="gallery-wrapper" id="gallery-wrapper">
         <div class="page-header" id="gallery-header">
-            <a class="header-home-link" href="#0" aria-label="Torna alla home">
-                <img src="logobianco.svg" alt="">
+            <a class="header-home-link" href="#0" aria-label="Torna alla home" draggable="false">
+                <img src="logobianco.svg" alt="" draggable="false">
             </a>
             <button class="top-nav-btn nav-overview-trigger">GALLERIE</button>
             <a class="top-nav-btn info-nav-link" href="info.html">INFO</a>
