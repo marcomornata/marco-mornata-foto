@@ -113,11 +113,7 @@
         .screen-main-menu .top-nav-btn { color: #ffffff; }
         .overview-wrapper .top-nav-btn, .gallery-wrapper .top-nav-btn { color: #000000; }
 
-        #overview-header {
-            justify-content: flex-start;
-            gap: 35px;
-        }
-
+        #overview-header,
         #gallery-header {
             justify-content: flex-start;
             gap: 35px;
@@ -289,14 +285,16 @@
 
         @media (max-width: 768px) {
             .page-header { 
-                padding: 15px 20px; 
+                left: 20px;
+                width: calc(100% - 40px);
+                padding: 15px 0;
                 flex-direction: row;
                 align-items: center;
                 gap: 16px;
             }
+            #overview-header,
             #gallery-header {
-                flex-direction: row;
-                align-items: center;
+                gap: 16px;
             }
             .header-spacer {
                 height: 100px;
@@ -310,8 +308,9 @@
         }
 
         @media (max-width: 480px) {
-            .page-header { padding: 14px 12px; gap: 10px; }
-            #overview-header { gap: 10px; }
+            .page-header { padding: 14px 0; gap: 10px; }
+            #overview-header,
+            #gallery-header { gap: 10px; }
             .tags-container { gap: 10px; }
             .tag-btn, .top-nav-btn { font-size: 10px !important; letter-spacing: 1px !important; }
             .header-home-link { width: 30px; height: 30px; flex-basis: 30px; }
