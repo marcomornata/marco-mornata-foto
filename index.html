@@ -233,6 +233,8 @@
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
+        .photo-item img { max-height: none; }
+
         .photo-item img.loaded, .overview-card img.loaded {
             opacity: 1;
             transform: translateY(0);
@@ -355,7 +357,29 @@
             'gallery-4': [
                 'galleria4/foto1.jpg',
                 'galleria4/foto2.jpg'
+            ],
+            'gallery-5': [
+                'Snia/foto1.jpg',
+                'Snia/foto2.jpg',
+                'Snia/foto3.jpg',
+                'Snia/foto4.jpg',
+                'Snia/foto5.jpg',
+                'Snia/foto6.jpg',
+                'Snia/foto7.jpg',
+                'Snia/foto8.jpg',
+                'Snia/foto9.jpg',
+                'Snia/foto10.jpg'
             ]
+        };
+
+        const galleryNames = {
+            'gallery-5': 'SNIA'
+        };
+        const galleryTags = {
+            'gallery-1': 'architettura',
+            'gallery-2': 'architettura',
+            'gallery-3': 'natura',
+            'gallery-5': 'architettura'
         };
 
         let currentFilter = 'tutti';
@@ -495,8 +519,7 @@
             const galleryKeys = Object.keys(contentGalleries);
             
             galleryKeys.forEach((galleryId, index) => {
-                if (filter === 'architettura' && index >= 2) return;
-                if (filter === 'natura' && index >= 3) return;
+                if (filter !== 'tutti' && galleryTags[galleryId] !== filter) return;
 
                 const photos = contentGalleries[galleryId];
                 if (photos && photos.length > 0) {
@@ -516,7 +539,7 @@
                     if (img.complete) img.classList.add('loaded');
 
                     const label = document.createElement('span');
-                    label.textContent = `GALLERIA ${index + 1}`;
+                    label.textContent = galleryNames[galleryId] || `GALLERIA ${index + 1}`;
 
                     card.appendChild(img);
                     card.appendChild(label);
@@ -547,6 +570,8 @@
                 renderState('gallery', 'gallery-3');
             } else if (hash === '#5') {
                 renderState('gallery', 'gallery-4');
+            } else if (hash === '#6') {
+                renderState('gallery', 'gallery-5');
             } else {
                 renderState('home');
             }
