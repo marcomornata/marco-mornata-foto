@@ -371,6 +371,7 @@
         const viewportMeta = document.querySelector('meta[name="viewport"]');
         const defaultViewportContent = viewportMeta?.content;
         let zoomResetTimeout;
+        let homeLogoAnimationTimeout;
 
         const contentGalleries = {
             'gallery-1': [
@@ -417,31 +418,22 @@
         let currentTarget = null;
 
         function restartHomeLogoAnimation() {
-            // Rigenera l'SVG da stringa HTML per slegarlo dalla cache del DOM
+            clearTimeout(homeLogoAnimationTimeout);
             homeLogoLink.innerHTML = homeLogoHTML;
             const newLogo = homeLogoLink.querySelector('svg');
+            const bladeAnimations = newLogo.querySelectorAll('#iris-blades animate');
+            const centerAnimation = newLogo.querySelector('#center-cube animate');
+            const animations = [...bladeAnimations, centerAnimation];
 
-            if (newLogo) {
-                // Riporta a 0 la timeline interna SMIL del nuovo SVG
-                if (typeof newLogo.setCurrentTime === 'function') {
-                    newLogo.setCurrentTime(0);
-                }
+            animations.forEach(animation => animation.setAttribute('begin', 'indefinite'));
+            newLogo.pauseAnimations();
+            newLogo.setCurrentTime(0);
 
-                // Riavvia esplicitamente le animazioni rispettando eventuali ritardi (begin)
-                newLogo.querySelectorAll('animate').forEach(anim => {
-                    const beginAttr = anim.getAttribute('begin');
-                    if (beginAttr && beginAttr !== '0s') {
-                        const delayMs = parseFloat(beginAttr) * 1000;
-                        setTimeout(() => {
-                            if (typeof anim.beginElement === 'function') {
-                                anim.beginElement();
-                            }
-                        }, delayMs);
-                    } else if (typeof anim.beginElement === 'function') {
-                        anim.beginElement();
-                    }
-                });
-            }
+            requestAnimationFrame(() => {
+                newLogo.unpauseAnimations();
+                bladeAnimations.forEach(animation => animation.beginElement());
+                homeLogoAnimationTimeout = setTimeout(() => centerAnimation.beginElement(), 550);
+            });
         }
 
         function navigateTo(target, param = null, filter = null) {
