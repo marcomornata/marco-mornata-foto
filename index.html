@@ -113,6 +113,21 @@
         .screen-main-menu .top-nav-btn { color: #ffffff; }
         .overview-wrapper .top-nav-btn, .gallery-wrapper .top-nav-btn { color: #000000; }
 
+        #overview-header {
+            justify-content: flex-start;
+            gap: 35px;
+        }
+
+        #gallery-header {
+            justify-content: flex-start;
+        }
+
+        .info-nav-link {
+            margin-left: auto;
+            color: #000000;
+            text-decoration: none;
+        }
+
         .header-home-link {
             display: block;
             width: 30px;
@@ -271,6 +286,10 @@
                 align-items: flex-start; 
                 gap: 10px; 
             }
+            #gallery-header {
+                flex-direction: row;
+                align-items: center;
+            }
             .header-spacer {
                 height: 100px;
             }
@@ -353,6 +372,7 @@
                 <img src="logobianco.svg" alt="">
             </a>
             <button class="top-nav-btn nav-overview-trigger">GALLERIE</button>
+            <a class="top-nav-btn info-nav-link" href="info.html">INFO</a>
         </div>
         <div class="header-spacer"></div>
         <div class="gallery-list" id="gallery-list"></div>

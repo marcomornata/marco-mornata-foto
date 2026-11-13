@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info - Marco Mornata</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            font-family: "Jost", sans-serif;
+            font-weight: 300;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f0f0f0;
+            color: #000;
+        }
+
+        .page-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            width: 100%;
+            padding: 22px 40px;
+            background: #f0f0f0;
+        }
+
+        .header-home-link {
+            display: block;
+            flex: 0 0 30px;
+            width: 30px;
+            height: 30px;
+            transition: opacity 0.3s ease;
+        }
+
+        .header-home-link:hover,
+        .top-nav-link:hover {
+            opacity: 0.5;
+        }
+
+        .header-home-link img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            filter: invert(1);
+        }
+
+        .top-nav-link {
+            color: #000;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        main {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 150px 40px 80px;
+            font-size: 17px;
+            line-height: 1.7;
+            letter-spacing: 0.3px;
+        }
+
+        h1 {
+            margin: 0 0 24px;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        p + p {
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 15px 20px;
+                gap: 25px;
+            }
+
+            main {
+                padding: 120px 20px 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <a class="header-home-link" href="index.html#0" aria-label="Torna alla home">
+            <img src="logobianco.svg" alt="">
+        </a>
+        <a class="top-nav-link" href="index.html#1-tutti">GALLERIE</a>
+    </header>
+    <main>
+        <h1>INFO</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae sem vel neque commodo tincidunt. Integer at justo sed urna interdum consequat. Aenean euismod, erat a feugiat consequat, justo lectus posuere velit, vitae volutpat nulla enim sed erat.</p>
+        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur non magna ut erat laoreet feugiat. Phasellus consequat, felis vitae posuere facilisis, neque erat sodales justo, vitae tincidunt lectus mi eget arcu.</p>
+    </main>
+</body>
+</html>
