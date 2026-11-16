@@ -110,8 +110,15 @@
             height: 90px;
         }
 
-        .screen-main-menu .top-nav-btn { color: #ffffff; }
-        .overview-wrapper .top-nav-btn, .gallery-wrapper .top-nav-btn { color: #000000; }
+        .screen-main-menu .top-nav-btn, .gallery-wrapper .top-nav-btn { color: #ffffff; }
+        .overview-wrapper .top-nav-btn { color: #000000; }
+        .gallery-wrapper {
+            min-height: 100vh;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .gallery-wrapper .header-home-link img { filter: invert(1); }
 
         #overview-header,
         #gallery-header {
@@ -124,6 +131,8 @@
             color: #000000;
             text-decoration: none;
         }
+
+        .gallery-wrapper .info-nav-link { color: #ffffff; }
 
         .header-home-link {
             display: block;
@@ -550,8 +559,8 @@
                 renderOverviewGrid(filter);
                 requestAnimationFrame(() => elements.overviewWrapper.classList.add('visible'));
             } else if (target === 'gallery' && param) {
-                document.documentElement.classList.add('light-mode');
-                document.body.classList.add('light-mode');
+                document.documentElement.classList.remove('light-mode');
+                document.body.classList.remove('light-mode');
                 elements.galleryWrapper.style.display = 'block';
                 renderGalleryContent(param);
                 requestAnimationFrame(() => elements.galleryWrapper.classList.add('visible'));
