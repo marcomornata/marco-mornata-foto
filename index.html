@@ -301,6 +301,16 @@
             transform: translateY(0);
         }
 
+        @media (min-width: 769px) {
+            .photo-item img {
+                width: auto;
+                max-width: 100%;
+                max-height: calc(100vh - 130px);
+                max-height: calc(100dvh - 130px);
+                margin: 0 auto;
+            }
+        }
+
         @media (max-width: 768px) {
             .page-header { 
                 left: 20px;
@@ -445,7 +455,10 @@
                 'Snia/foto10.jpg'
             ],
             'gallery-6': [
-                'Fellaria/foto1.jpg'
+                'Fellaria/foto1.jpg',
+                'Fellaria/foto2.jpg',
+                'Fellaria/foto3.jpg',
+                'Fellaria/foto4.jpg'
             ]
         };
 
