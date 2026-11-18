@@ -478,6 +478,12 @@
                 'Valpelline/foto15.jpg',
                 'Valpelline/foto16.jpg',
                 'Valpelline/foto17.jpg'
+            ],
+            'gallery-8': [
+                'Tomba Brion/foto1.jpg',
+                'Tomba Brion/foto2.jpg',
+                'Tomba Brion/foto3.jpg',
+                'Tomba Brion/foto4.jpg'
             ]
         };
 
@@ -485,13 +491,15 @@
             'gallery-1': 'TRESIGALLO',
             'gallery-5': 'SNIA',
             'gallery-6': 'FELLARIA',
-            'gallery-7': 'VALPELLINE'
+            'gallery-7': 'VALPELLINE',
+            'gallery-8': 'TOMBA BRION'
         };
         const galleryTags = {
             'gallery-1': 'architettura',
             'gallery-5': 'architettura',
             'gallery-6': 'natura',
-            'gallery-7': 'natura'
+            'gallery-7': 'natura',
+            'gallery-8': 'architettura'
         };
 
         let currentFilter = 'tutti';
@@ -683,6 +691,8 @@
                 renderState('gallery', 'gallery-6');
             } else if (hash === '#8') {
                 renderState('gallery', 'gallery-7');
+            } else if (hash === '#9') {
+                renderState('gallery', 'gallery-8');
             } else {
                 renderState('home');
             }
@@ -701,7 +711,7 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 const hash = window.location.hash;
-                if (hash === '#2' || hash === '#6' || hash === '#7' || hash === '#8') {
+                if (hash === '#2' || hash === '#6' || hash === '#7' || hash === '#8' || hash === '#9') {
                     navigateTo('overview');
                 } else if (hash.startsWith('#1')) {
                     navigateTo('home');
