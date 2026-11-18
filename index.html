@@ -614,6 +614,11 @@
                     description.className = 'gallery-description';
                     description.textContent = 'Tresigallo, conosciuta come la "Città Metafisica", è un gioiello architettonico del razionalismo italiano immerso nella pianura ferrarese. Ridisegnata interamente negli anni Trenta, incanta con le sue geometrie pure, i colori pastello e le piazze sospese nel tempo, offrendo uno scenario surreale che sembra uscito da un quadro di De\u00A0Chirico.';
                     elements.galleryList.appendChild(description);
+                } else if (galleryId === 'gallery-8') {
+                    const description = document.createElement('p');
+                    description.className = 'gallery-description';
+                    description.textContent = "Calcestruzzo, acqua e luce scolpiscono il percorso monumentale di Carlo Scarpa nella Tomba Brion di San Vito d'Altivole. Geometrie rigorose, incastri artigianali e raffinati dettagli in bronzo trasformano la materia in poesia.";
+                    elements.galleryList.appendChild(description);
                 }
 
                 currentPhotos.forEach(srcPath => {
