@@ -383,8 +383,13 @@
                 opacity: 0.65;
             }
 
-            .gallery-arrow:focus:not(:focus-visible) {
+            .gallery-arrow:focus {
                 outline: none;
+            }
+
+            .keyboard-navigation .gallery-arrow:focus {
+                outline: 2px solid #000000;
+                outline-offset: 3px;
             }
 
             .gallery-arrow-prev {
@@ -875,6 +880,10 @@
         });
 
         document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+
             if (currentTarget === 'gallery' && window.matchMedia('(min-width: 769px)').matches) {
                 if (e.key === 'ArrowLeft') {
                     e.preventDefault();
@@ -893,6 +902,10 @@
                     navigateTo('home');
                 }
             }
+        });
+
+        document.addEventListener('pointerdown', () => {
+            document.body.classList.remove('keyboard-navigation');
         });
 
         document.addEventListener('contextmenu', e => e.preventDefault());
