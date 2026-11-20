@@ -301,7 +301,7 @@
             transform: translateY(0);
         }
 
-        @media (min-width: 769px) {
+        @media (min-width: 769px) and (hover: hover) and (pointer: fine) {
             .gallery-list {
                 width: 100%;
                 max-width: none;
@@ -383,6 +383,10 @@
                 opacity: 0.65;
             }
 
+            .gallery-arrow:focus:not(:focus-visible) {
+                outline: none;
+            }
+
             .gallery-arrow-prev {
                 left: -8px;
             }
@@ -398,7 +402,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px), (hover: none) and (pointer: coarse) {
             .page-header { 
                 left: 20px;
                 width: calc(100% - 40px);
