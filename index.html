@@ -305,18 +305,73 @@
             .gallery-list {
                 width: 100%;
                 max-width: none;
+                gap: 0;
+                padding: 0 40px;
             }
 
             .gallery-description {
                 max-width: 800px;
+                margin: 0 auto 24px;
             }
 
-            .photo-item img {
+            .gallery-carousel {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: calc(100vh - 90px);
+                height: calc(100dvh - 90px);
+            }
+
+            .gallery-carousel .photo-item {
+                display: none;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+            }
+
+            .gallery-carousel .photo-item.active {
+                display: flex;
+            }
+
+            .gallery-carousel .photo-item img {
                 width: auto;
-                max-width: 100%;
-                max-height: calc(100vh - 130px);
-                max-height: calc(100dvh - 130px);
-                margin: 0 auto;
+                max-width: 90vw;
+                max-height: 85vh;
+                max-height: 85dvh;
+                object-fit: contain;
+            }
+
+            .gallery-arrow {
+                position: absolute;
+                z-index: 1;
+                top: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 44px;
+                height: 44px;
+                color: #000000;
+                background: rgba(240, 240, 240, 0.75);
+                border-radius: 50%;
+                font-family: Arial, sans-serif !important;
+                font-size: 30px !important;
+                line-height: 1;
+                transform: translateY(-50%);
+            }
+
+            .gallery-arrow:hover {
+                opacity: 0.65;
+            }
+
+            .gallery-arrow-prev {
+                left: 0;
+            }
+
+            .gallery-arrow-next {
+                right: 0;
             }
         }
 
@@ -342,6 +397,8 @@
             button, .top-nav-btn, .tag-btn { font-size: 12px !important; }
             .home-content-box { max-width: 85vw; margin-top: -65px; padding: 0 10px; }
             .logo-diaphragm { max-height: 36vh; max-height: 36dvh; }
+            .gallery-carousel { display: contents; }
+            .gallery-arrow { display: none; }
         }
 
         @media (max-width: 480px) {
@@ -640,19 +697,52 @@
                     elements.galleryList.appendChild(description);
                 }
 
-                currentPhotos.forEach(srcPath => {
+                const carousel = document.createElement('div');
+                carousel.className = 'gallery-carousel';
+
+                const previousButton = document.createElement('button');
+                previousButton.className = 'gallery-arrow gallery-arrow-prev';
+                previousButton.type = 'button';
+                previousButton.setAttribute('aria-label', 'Foto precedente');
+                previousButton.innerHTML = '&#8249;';
+                previousButton.addEventListener('click', () => changeGalleryPhoto(-1));
+
+                const nextButton = document.createElement('button');
+                nextButton.className = 'gallery-arrow gallery-arrow-next';
+                nextButton.type = 'button';
+                nextButton.setAttribute('aria-label', 'Foto successiva');
+                nextButton.innerHTML = '&#8250;';
+                nextButton.addEventListener('click', () => changeGalleryPhoto(1));
+
+                currentPhotos.forEach((srcPath, index) => {
                     const itemDiv = document.createElement('div');
                     itemDiv.className = 'photo-item';
                     
                     const imgElement = document.createElement('img');
+                    imgElement.alt = `${galleryNames[galleryId]} - foto ${index + 1}`;
                     imgElement.onload = () => imgElement.classList.add('loaded');
                     imgElement.src = srcPath;
                     if (imgElement.complete) imgElement.classList.add('loaded');
                     
                     itemDiv.appendChild(imgElement);
-                    elements.galleryList.appendChild(itemDiv);
+                    if (index === 0) itemDiv.classList.add('active');
+                    carousel.appendChild(itemDiv);
                 });
+
+                carousel.prepend(previousButton);
+                carousel.appendChild(nextButton);
+                elements.galleryList.appendChild(carousel);
             }
+        }
+
+        function changeGalleryPhoto(direction) {
+            const photos = elements.galleryList.querySelectorAll('.photo-item');
+            if (photos.length < 2) return;
+
+            const activeIndex = Array.from(photos).findIndex(photo => photo.classList.contains('active'));
+            const nextIndex = (activeIndex + direction + photos.length) % photos.length;
+            photos[activeIndex].classList.remove('active');
+            photos[nextIndex].classList.add('active');
         }
 
         function renderOverviewGrid(filter) {
@@ -735,6 +825,16 @@
         });
 
         document.addEventListener('keydown', (e) => {
+            if (currentTarget === 'gallery' && window.matchMedia('(min-width: 769px)').matches) {
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    changeGalleryPhoto(-1);
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    changeGalleryPhoto(1);
+                }
+            }
+
             if (e.key === 'Escape') {
                 const hash = window.location.hash;
                 if (hash === '#2' || hash === '#6' || hash === '#7' || hash === '#8' || hash === '#9') {
