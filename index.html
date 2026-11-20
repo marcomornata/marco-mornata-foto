@@ -436,6 +436,23 @@
             .tag-btn, .top-nav-btn { font-size: 10px !important; letter-spacing: 1px !important; }
             .header-home-link { width: 30px; height: 30px; flex-basis: 30px; }
         }
+
+        @media (orientation: landscape) and (hover: none) and (pointer: coarse) {
+            .gallery-list .photo-item img {
+                width: auto;
+                height: auto;
+                max-width: 100%;
+                max-height: 85vh;
+                max-height: 85dvh;
+                object-fit: contain;
+                margin: 0 auto;
+            }
+
+            .gallery-list .photo-item img.landscape-photo {
+                max-height: 90vh;
+                max-height: 90dvh;
+            }
+        }
     </style>
 </head>
 <body>
@@ -747,9 +764,15 @@
                     
                     const imgElement = document.createElement('img');
                     imgElement.alt = `${galleryNames[galleryId]} - foto ${index + 1}`;
-                    imgElement.onload = () => imgElement.classList.add('loaded');
+                    const markImageLoaded = () => {
+                        imgElement.classList.add('loaded');
+                        if (imgElement.naturalWidth > imgElement.naturalHeight) {
+                            imgElement.classList.add('landscape-photo');
+                        }
+                    };
+                    imgElement.onload = markImageLoaded;
                     imgElement.src = srcPath;
-                    if (imgElement.complete) imgElement.classList.add('loaded');
+                    if (imgElement.complete) markImageLoaded();
                     
                     itemDiv.appendChild(imgElement);
                     if (index === 0) itemDiv.classList.add('active');
