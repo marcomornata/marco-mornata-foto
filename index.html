@@ -336,6 +336,24 @@
                 display: flex;
             }
 
+            @keyframes gallery-slide-from-right {
+                from { opacity: 0.5; transform: translateX(32px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+
+            @keyframes gallery-slide-from-left {
+                from { opacity: 0.5; transform: translateX(-32px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+
+            .gallery-carousel .photo-item.active.slide-next {
+                animation: gallery-slide-from-right 0.35s ease both;
+            }
+
+            .gallery-carousel .photo-item.active.slide-prev {
+                animation: gallery-slide-from-left 0.35s ease both;
+            }
+
             .gallery-carousel .photo-item img {
                 width: auto;
                 max-width: 90vw;
@@ -372,6 +390,13 @@
 
             .gallery-arrow-next {
                 right: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .gallery-carousel .photo-item.active.slide-next,
+            .gallery-carousel .photo-item.active.slide-prev {
+                animation: none;
             }
         }
 
@@ -741,7 +766,9 @@
 
             const activeIndex = Array.from(photos).findIndex(photo => photo.classList.contains('active'));
             const nextIndex = (activeIndex + direction + photos.length) % photos.length;
+            photos.forEach(photo => photo.classList.remove('slide-next', 'slide-prev'));
             photos[activeIndex].classList.remove('active');
+            photos[nextIndex].classList.add(direction > 0 ? 'slide-next' : 'slide-prev');
             photos[nextIndex].classList.add('active');
         }
 
